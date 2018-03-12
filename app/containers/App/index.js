@@ -12,18 +12,43 @@
  */
 
 import React from 'react';
+import { browserHistory } from 'react-router';
+import Helmet from 'react-helmet';
 
-export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    children: React.PropTypes.node,
-  };
+export  class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
+    let content = null;
+    let sessionKey = localStorage.getItem('sessionkey');
+    let userInfo = sessionStorage.getItem('userInfo');
+    if(sessionKey && userInfo){
+      if(location.pathname=='/login'){
+        browserHistory.push('/home')
+      }
+      content = (
+        <div style={{height:'100%'}}>
+          {React.Children.toArray(this.props.children)}
+        </div>
+      )
+    }else{
+      if(location.pathname!='/login'){
+        browserHistory.push('/login')
+      }
+      content = (
+        <div style={{height:'100%'}}>
+          {React.Children.toArray(this.props.children)}
+        </div>
+      )
+    }
     return (
-      <div>
-        {React.Children.toArray(this.props.children)}
+      <div style={{height:'100%'}}>
+        
+        {content}
       </div>
     );
   }
 }
+App.propTypes = {
+  children: React.PropTypes.node,
+};
+export default App;
