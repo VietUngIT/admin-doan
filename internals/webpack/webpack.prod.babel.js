@@ -15,9 +15,16 @@ module.exports = require('./webpack.base.babel')({
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
   },
+  babelQuery: {
+      plugins: [
+        ['import', {
+          libraryName: 'antd',
+          style: 'css',
+        }],
+      ],
+    },
 
   plugins: [
-    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       children: true,

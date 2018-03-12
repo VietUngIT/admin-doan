@@ -14,10 +14,11 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 process.stdout.write('\n');
-let interval;
-let clearRepo = true;
+let interval = animateProgress('Cleaning old repository');
+process.stdout.write('Cleaning old repository');
 
-cleanRepo(() => {
+cleanRepo(function () {
+  clearInterval(interval);
   process.stdout.write('\nInstalling dependencies... (This might take a while)');
   setTimeout(function () {
     readline.cursorTo(process.stdout, 0);
@@ -28,42 +29,10 @@ cleanRepo(() => {
 });
 
 /**
- * Deletes the .git folder in dir only if cloned from our repo
+ * Deletes the .git folder in dir
  */
 function cleanRepo(callback) {
-  fs.readFile('.git/config', 'utf8', (err, data) => {
-    if(!err) {
-      let isClonedRepo = typeof data === 'string' 
-        && (data.match(/url\s*=/g) || []).length === 1
-        && /react-boilerplate\/react-boilerplate\.git/.test(data);
-      if(isClonedRepo) {
-        process.stdout.write('\nDo you want to clear old repository? [Y/n] ');
-        process.stdin.resume();
-        process.stdin.on('data', (data) => {
-          let val = data.toString().trim();
-          if(val === 'y' || val === 'Y' || val === '') {
-            process.stdout.write('Removing old repository');
-            shell.rm('-rf', '.git/');
-            addCheckMark(callback);
-          } else {
-            dontClearRepo('', callback); 
-          }
-        });
-      } else {
-        dontClearRepo('\n', callback);
-      }
-    } else {
-      callback();
-    }
-  });
-}
-
-/**
- * Function which indicates that we are not cleaning git repo
- */
-function dontClearRepo(nl, callback) {
-  clearRepo = false;
-  process.stdout.write(nl + 'Leaving your repository untouched');
+  shell.rm('-rf', '.git/');
   addCheckMark(callback);
 }
 
@@ -114,14 +83,12 @@ function installDepsCallback(error) {
   }
 
   deleteFileInCurrentDir('setup.js', function () {
-    if(clearRepo) {
-      interval = animateProgress('Initialising new repository');
-      process.stdout.write('Initialising new repository');
-      initGit(function () {
-        clearInterval(interval);
-      });
-    }
-    process.stdout.write('\nDone!');
-    process.exit(0);
+    interval = animateProgress('Initialising new repository');
+    process.stdout.write('Initialising new repository');
+    initGit(function () {
+      clearInterval(interval);
+      process.stdout.write('\nDone!');
+      process.exit(0);
+    });
   });
 }
