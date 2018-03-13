@@ -9,9 +9,18 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectLogin from './selectors';
 import messages from './messages';
 import LoginPage from 'components/LoginPage';
+import {withRouter} from 'react-router' ;
+
+import {
+  loginPhone,
+} from './actions';
+import {
+  selectLoginSuccess,
+  selectPhone,
+  selectPassword,
+} from './selectors';
 
 export class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -23,7 +32,7 @@ export class Login extends React.Component { // eslint-disable-line react/prefer
             { name: 'description', content: 'Description of Login' },
           ]}
         />
-        <LoginPage/>
+        <LoginPage loginPhone={this.props.loginPhone} email={this.props.email} password={this.props.password}/>
       </div>
     );
   }
@@ -34,11 +43,13 @@ Login.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  Login: makeSelectLogin(),
+  email: selectEmail(),
+  password: selectPassword(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    loginPhone: (phone,password)=> dispatch(loginPhone(phone,password)),
     dispatch,
   };
 }
