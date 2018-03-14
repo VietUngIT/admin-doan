@@ -15,6 +15,8 @@ import {withRouter} from 'react-router' ;
 
 import {
   loginPhone,
+  changePhone,
+  changePassword,
 } from './actions';
 import {
   selectLoginSuccess,
@@ -32,7 +34,8 @@ export class Login extends React.Component { // eslint-disable-line react/prefer
             { name: 'description', content: 'Description of Login' },
           ]}
         />
-        <LoginPage loginPhone={this.props.loginPhone} email={this.props.email} password={this.props.password}/>
+        <LoginPage loginPhone={this.props.loginPhone} phone={this.props.phone} 
+          password={this.props.password} changePhone={this.props.changePhone} changePassword={this.props.changePassword}/>
       </div>
     );
   }
@@ -43,13 +46,15 @@ Login.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  email: selectEmail(),
+  phone: selectPhone(),
   password: selectPassword(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     loginPhone: (phone,password)=> dispatch(loginPhone(phone,password)),
+    changePhone: (phone)=> dispatch(changePhone(phone)),
+    changePassword: (password)=> dispatch(changePassword(password)),
     dispatch,
   };
 }

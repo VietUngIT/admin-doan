@@ -57,8 +57,7 @@ const styles = {
       color : 'white',
       fontSize : '16px',
       marginLeft :'0px',
-      marginTop:'9%'
+      marginTop:'5%'
     }
-  
 }
 export default styles ;

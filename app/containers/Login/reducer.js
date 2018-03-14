@@ -10,6 +10,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGIN_PHONE,
+  CHANGE_PHONE,
+  CHANGE_PASSWORD,
 } from './constants';
 
 const initialState = fromJS({
@@ -32,7 +34,7 @@ function loginReducer(state = initialState, action) {
         .set('err',false)
         .set('loginSuccess',false)
         .set('password',action.password)
-        .set('phone',actionphone)
+        .set('phone',action.phone)
     case LOGIN_SUCCESS:
       return state
         .set('loginSuccess',true)
@@ -40,6 +42,12 @@ function loginReducer(state = initialState, action) {
         .set('email',false)
         .set('user',action.user)
         .set('err',false)
+    case CHANGE_PHONE:
+      return state
+        .set('phone',action.phone)
+    case CHANGE_PASSWORD:
+      return state
+        .set('password',(action.password));
     case LOGIN_ERROR:
       return state
         .set('err',action.error);
