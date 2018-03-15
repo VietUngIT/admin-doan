@@ -43,7 +43,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  email: selectEmail(),
+  phone: selectPhone(),
   password: selectPassword(),
 });
 
