@@ -9,6 +9,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGIN_PHONE,
+  CHANGE_PHONE,
+  CHANGE_PASSWORD,
 } from './constants';
 
 export function defaultAction() {
@@ -34,5 +36,19 @@ export function loginError(error) {
   return {
     type: LOGIN_ERROR,
     error,
+  };
+}
+
+export function changePhone(phone) {
+  return {
+    type: CHANGE_PHONE,
+    phone,
+  };
+}
+
+export function changePassword(password) {
+  return {
+    type: CHANGE_PASSWORD,
+    password,
   };
 }

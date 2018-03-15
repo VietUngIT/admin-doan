@@ -11,7 +11,14 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import styles from './styles';
 import styled from 'styled-components';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import { Input,Button,Icon,Row,Col,Checkbox,message,Form } from 'antd';
+import { Link } from 'react-router';
+import {
+  loginPhone,
+  loginError,
+} from 'containers/Login/actions';
 const Input_ = styled.input`
   color: black ;
   height : 35px;
@@ -27,9 +34,69 @@ const Input_ = styled.input`
   },
 `;
 
-
-class LoginPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+//var phone = null;
+//var password = null;
+//var textError = null;
+class LoginPage extends React.Component { 
+  loginPhone=()=>{
+    console.log("this.refs.phone: ",this.refs.phone)
+    if(this.refs.phone.props.value!=null && this.refs.password.props.value != null &&
+      this.refs.phone.props.value.trim() !="" && this.refs.password.props.value.trim() !=""){
+      this.props.loginPhone(this.refs.phone.props.value.trim(),this.refs.password.props.value.trim());
+    }else{
+      this.props.loginError('Không được để trống !')
+      message.error("Không được để trống !")
+    }
+  };
   render() {
+    var userInfo;
+    if(JSON.parse(localStorage.getItem('userInfo'))){
+      userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    }
+
+    let phone="null";
+    if(!this.props.phone){
+      phone="";
+    } else {
+      phone = this.props.phone;
+    }
+    let password="null";
+    if(!this.props.password){
+      password="";
+    } else {
+      password = this.props.password;
+    }
+    // if(!this.props.password){
+    //   password = "";
+    // }else{
+    //   password = this.props.password;
+    // }
+    // if(!this.props.phone){
+    //   phone = "";
+      
+    // }else{
+    //   phone = this.props.phone;
+      // if(userInfo){
+      //   if(userInfo.phone){
+      //     phone = userInfo.phone;
+      //   }
+      // }else{
+      //   phone = "";
+      // }
+    // }
+    // if(this.props.password ||this.props.password===''){
+    //   password = this.props.password;
+    // }else{
+    //   if(userInfo){
+    //     if(userInfo.password){
+    //       password = userInfo.password;
+    //     }
+    //   }else{
+    //     password = "";
+    //   }
+    // }
+    // onChange={(e)=>this.props.changePhone(e.target.value)}
+    // onChange={(e)=>this.props.changePassword(e.target.value)}
     return (
       <div style={styles.page}>
           <img src={require('./bg.jpg')} style={styles.imageBG}/>
@@ -44,20 +111,22 @@ class LoginPage extends React.Component { // eslint-disable-line react/prefer-st
                   <div style={{height: 6,background:"#1A237E"}}></div>
                 </div>
                 <div style={{padding: 10}}>
-                  <div style={{marginBottom: 20,marginTop: 30}}>
+                  <div style={{marginBottom: 15,marginTop: "7%"}}>
                     <div style={{width:'20px',height:'100%'}}>
                       <Icon type="user" style={styles.icon} />
                     </div>
-                    <Input_ placeholder="Email"  ref="email" autoComplete = "off" />
+                    <Input_ value={phone} placeholder="Phone"  ref="phone" autoComplete = "off" 
+                        onChange={(e)=>this.props.changePhone(e.target.value)}/>
                   </div>
-                  <div style={{marginBottom: 10,marginTop: 10}}>
+                  <div style={{marginBottom: "7%",marginTop: "3%"}}>
                     <div style={{width:'20px',height:'100%'}}>
                       <Icon type="lock" style={styles.icon} />
                     </div>
-                    <Input_ placeholder="Pass"  ref="pass" autoComplete = "off"/>
+                    <Input_ value={password} placeholder="Password"  ref="password" autoComplete = "off" 
+                        onChange={(e)=>this.props.changePassword(e.target.value)}/>
                   </div>
                   <div>
-                    <Button style={styles.btnLogin} onClick={this.loginEmail} > ĐĂNG NHẬP </Button>
+                    <Button style={styles.btnLogin} onClick={this.loginPhone} > ĐĂNG NHẬP </Button>
                   </div>
                 </div>
               </div>
@@ -71,5 +140,17 @@ class LoginPage extends React.Component { // eslint-disable-line react/prefer-st
 LoginPage.propTypes = {
 
 };
+const mapStateToProps = createStructuredSelector({
 
-export default LoginPage;
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    loginPhone: (phone,password)=> dispatch(loginPhone(phone,password)),
+    loginError: (error)=> dispatch(loginError(error)),
+    
+    dispatch,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

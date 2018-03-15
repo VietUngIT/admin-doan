@@ -1,37 +1,80 @@
-/**
- *
- * App.react.js
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
 import React from 'react';
 import { browserHistory } from 'react-router';
 import Helmet from 'react-helmet';
+import {Icon} from 'antd';
+import styled from 'styled-components';
+import AppBar from 'material-ui/AppBar';
+import NavigationBar from 'components/NavigationBar'
+import ResizeAware from 'react-resize-aware';
+
+const AppWrapper = styled.div`
+  display: flex;
+  min-height: 100%;
+  height: 100%;
+`;
 
 export  class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
+  constructor(props) {
+    super(props);
+      this.state = {
+        widthNavigation: 3,
+      };
+  }
+  clickIconButton =()=>{
+    if(this.state.widthNavigation === 3){
+      this.setState({ widthNavigation : 18 });
+    }else{
+      this.setState({ widthNavigation : 3 });
+    }
+  }
+  handleResize = ({ width, height }) => {
+    if(width<980 ){
+      this.setState({ 
+        widthNavigation : 3,
+      });
+    }
+    if(width>980){
+      if(this.state.widthNavigation === 18){
+        this.setState({ 
+          widthNavigation : 18,
+         });
+      }
+    }
+  };
   render() {
     let content = null;
-    let sessionKey = localStorage.getItem('sessionkey');
-    let userInfo = sessionStorage.getItem('userInfo');
-    if(sessionKey && userInfo){
+
+    let userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
+    if(userInfo){
+      console.log("userInfo "+userInfo)
       if(location.pathname=='/login'){
-        browserHistory.push('/home')
+        browserHistory.push('/')
       }
       content = (
-        <div style={{height:'100%'}}>
-          {React.Children.toArray(this.props.children)}
-        </div>
+        <AppWrapper>
+          <ResizeAware style={{height:'100%',display: "flex",minHeight: "100%",width: "100%"}} 
+            onlyEvent 
+            onResize={this.handleResize}
+          >
+            <div style={{width: `${this.state.widthNavigation}%`,minWidth: 60,background:'#1E88E5',overflow: 'hidden',transition: 'width 0.5s',}}>
+              <NavigationBar widthNavigation={this.state.widthNavigation} changeNavigationBar={()=>this.clickIconButton()}/>
+            </div>
+            <div style={{width: `${100-this.state.widthNavigation}%`,display: 'flex', flexDirection: 'column'}}>
+              <div style={{height: 50, background:"#FFFFFF"}}>
+                <div style={{display:"inline-block",float:"right",padding: 5,marginRight: 10}}>
+                  <span style={{fontSize: 18,fontWeight: 600, color: "#1E88E5", marginRight: 10,verticalAlign: "bottom"}}>{userInfo.name}</span>
+                  <img src={require('./maxresdefault.jpg')} width='40' height='40' style={{borderRadius:50,border: "2px solid #1A237E"}}/>
+                </div>
+              </div>
+              <div style={{flex: 1,background: "#F5F5F5"}}>
+                {React.Children.toArray(this.props.children)}
+              </div>
+            </div>
+          </ResizeAware>
+        </AppWrapper>
       )
     }else{
-      if(location.pathname!='/login'){
+      if(!(location.pathname==='/login')){
         browserHistory.push('/login')
       }
       content = (
@@ -41,8 +84,7 @@ export  class App extends React.Component { // eslint-disable-line react/prefer-
       )
     }
     return (
-      <div style={{height:'100%'}}>
-        
+      <div style={{height:'100%',borderBottom:"2px solid #37474F",borderTop:"2px solid #37474F",borderRight:"2px solid #37474F"}}>
         {content}
       </div>
     );

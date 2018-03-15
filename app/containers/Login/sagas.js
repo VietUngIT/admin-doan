@@ -6,29 +6,33 @@ import {
   loginError,
 } from './actions';
 import {message,} from 'antd';
-//import {callAPILogin,callAPIResetPassStep1} from 'utils/request';
+import {
+  callAPILoginPhone
+} from 'utils/request';
 import {
   selectPhone,
   selectPassword,
 } from './selectors';
-// import {callAPILoginEmail} from 'utils/request';
+import { sha256 } from 'js-sha256';
 
 export function* loginPhone() {
   const phone = yield select(selectPhone());
   const password =(yield select(selectPassword()));
-  // const response = yield call(callAPILoginEmail,phone,password);
+  const response = yield call(callAPILoginPhone,phone,sha256(password));
   
   try{
-    if (response.data.e==0) {
-        yield put(loginSuccess());
-        localStorage.setItem('userInfo',(JSON.stringify(response.data.data)));
-        message.info('Xin chào ' + response.data.data.name);
+    console.log("response.data.data: "+response.data.data.e)
+    if (response.data.data.e==0) {
+        yield put(loginSuccess(response.data.data.data));
+        sessionStorage.setItem('userInfo',(JSON.stringify(response.data.data.data)));
+        message.info('Xin chào ' + response.data.data.data.name);
+        yield put(push("/"));
 
     } else {
-      message.error(response.data.msg);
+      message.error(response.data.data.msg);
     }
   } catch(error){
-          message.error(response.data.e);
+          message.error(response.data.data.e);
           message.error('Lỗi đăng nhập !');
   }
   
@@ -36,14 +40,14 @@ export function* loginPhone() {
 
 export function* loginPhoneWatcher() {
   while (yield take(LOGIN_PHONE)) {
-    yield call(loginEmail);
+    yield call(loginPhone);
   }
 }
 
 export function* loginData() {
-  const watcher = yield fork(loginWatcher);
+  const watcherloginPhone = yield fork(loginPhoneWatcher);
   if(yield take(LOCATION_CHANGE)){
-    yield cancel(watcher);
+    yield cancel(watcherloginPhone);
 
   }
 }
