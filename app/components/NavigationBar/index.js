@@ -6,6 +6,7 @@ import styles from './styles';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { active } from 'glamor';
+import { browserHistory } from 'react-router';
 
 const SpanStyled = styled.span`
   fontSize: 18,
@@ -30,6 +31,16 @@ class NavigationBar extends React.Component {
     if(location.pathname.toUpperCase().indexOf("/")>-1){
       this.setState({active: 1}); 
     }
+  }
+
+  logoutHandle=()=>{
+    if(localStorage.getItem("userInfo")){
+      localStorage.removeItem("userInfo")
+    }
+    if(sessionStorage.getItem("userInfo")){
+      sessionStorage.removeItem("userInfo")
+    }
+    browserHistory.push('/login');
   }
   
   render() {
@@ -78,12 +89,10 @@ class NavigationBar extends React.Component {
           </Link>
         </div>
         <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}}>
-          <Link style={{textDecoration: 'none'}} to='/'>
-            <div style={{background:"#1A237E", width: "100%",height: 40}}>
-              <Icon type="solution" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
-              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Thông tin người dùng</SpanStyled>
-            </div>
-          </Link>
+          <div style={{background:"#1A237E", width: "100%",height: 40}} onClick={this.logoutHandle}>
+            <Icon type="logout" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
+            <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Đăng xuất</SpanStyled>
+          </div>
         </div>
       </div>
     );

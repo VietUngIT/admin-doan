@@ -12,6 +12,7 @@ import {
   LOGIN_PHONE,
   CHANGE_PHONE,
   CHANGE_PASSWORD,
+  CHANGE_REMEMBER,
 } from './constants';
 
 const initialState = fromJS({
@@ -23,6 +24,7 @@ const initialState = fromJS({
   onLogOutFb: false,
   isLogedin: false,
   isLogOut: false,
+  isRemember: false,
 });
 
 function loginReducer(state = initialState, action) {
@@ -51,6 +53,9 @@ function loginReducer(state = initialState, action) {
     case LOGIN_ERROR:
       return state
         .set('err',action.error);
+    case CHANGE_REMEMBER:
+      return state
+        .set('isRemember',action.remember);
     default:
       return state;
   }

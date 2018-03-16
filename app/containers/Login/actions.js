@@ -11,6 +11,7 @@ import {
   LOGIN_PHONE,
   CHANGE_PHONE,
   CHANGE_PASSWORD,
+  CHANGE_REMEMBER,
 } from './constants';
 
 export function defaultAction() {
@@ -50,5 +51,11 @@ export function changePassword(password) {
   return {
     type: CHANGE_PASSWORD,
     password,
+  };
+}
+export function changeRemember(remember) {
+  return {
+    type: CHANGE_REMEMBER,
+    remember,
   };
 }

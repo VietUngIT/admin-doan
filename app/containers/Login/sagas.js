@@ -12,6 +12,7 @@ import {
 import {
   selectPhone,
   selectPassword,
+  selectIsRemember,
 } from './selectors';
 import { sha256 } from 'js-sha256';
 
@@ -19,12 +20,15 @@ export function* loginPhone() {
   const phone = yield select(selectPhone());
   const password =(yield select(selectPassword()));
   const response = yield call(callAPILoginPhone,phone,sha256(password));
-  
+  const remember = yield select(selectIsRemember());
   try{
     console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
         yield put(loginSuccess(response.data.data.data));
         sessionStorage.setItem('userInfo',(JSON.stringify(response.data.data.data)));
+        if(remember){
+          localStorage.setItem('userInfo',(JSON.stringify(response.data.data.data)));
+        }
         message.info('Xin chào ' + response.data.data.data.name);
         yield put(push("/"));
 

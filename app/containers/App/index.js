@@ -13,7 +13,7 @@ const AppWrapper = styled.div`
   height: 100%;
 `;
 
-export  class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export  class App extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
@@ -44,7 +44,11 @@ export  class App extends React.Component { // eslint-disable-line react/prefer-
   render() {
     let content = null;
 
-    let userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
+    let userInfo = null;
+    userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if(userInfo == null){
+      userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    }
     if(userInfo){
       console.log("userInfo "+userInfo)
       if(location.pathname=='/login'){

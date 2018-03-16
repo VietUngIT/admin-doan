@@ -17,11 +17,13 @@ import {
   loginPhone,
   changePhone,
   changePassword,
+  changeRemember,
 } from './actions';
 import {
   selectLoginSuccess,
   selectPhone,
   selectPassword,
+  selectIsRemember,
 } from './selectors';
 
 export class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -34,7 +36,7 @@ export class Login extends React.Component { // eslint-disable-line react/prefer
             { name: 'description', content: 'Description of Login' },
           ]}
         />
-        <LoginPage loginPhone={this.props.loginPhone} phone={this.props.phone} 
+        <LoginPage loginPhone={this.props.loginPhone} phone={this.props.phone} remember={this.props.remember} changeRemember={this.props.changeRemember}
           password={this.props.password} changePhone={this.props.changePhone} changePassword={this.props.changePassword}/>
       </div>
     );
@@ -48,6 +50,7 @@ Login.propTypes = {
 const mapStateToProps = createStructuredSelector({
   phone: selectPhone(),
   password: selectPassword(),
+  remember: selectIsRemember(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -55,6 +58,7 @@ function mapDispatchToProps(dispatch) {
     loginPhone: (phone,password)=> dispatch(loginPhone(phone,password)),
     changePhone: (phone)=> dispatch(changePhone(phone)),
     changePassword: (password)=> dispatch(changePassword(password)),
+    changeRemember: (remember)=> dispatch(changeRemember(remember)),
     dispatch,
   };
 }

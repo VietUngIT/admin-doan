@@ -27,6 +27,10 @@ const selectIsLogedin = () => createSelector(
   selectLoginDomain(),
 (substate) => substate.get('isLogedin')
 );
+const selectIsRemember = () => createSelector(
+  selectLoginDomain(),
+(substate) => substate.get('isRemember')
+);
 
 export {
   selectLoginDomain,
@@ -36,4 +40,5 @@ export {
   selectIsLogedin,
   selectError,
   selectUser,
+  selectIsRemember,
 };
