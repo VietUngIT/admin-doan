@@ -51,12 +51,7 @@ class LoginPage extends React.Component {
   onChangeRemember=(e)=>{
     this.props.changeRemember(e.target.checked);
   }
-  handleKeyPress=(target) =>{
-    console.log("handleKeyPress")
-    // if(target.charCode==13){
-    //     this.loginEmail();
-    // }
-  };
+ 
   render() {
     var userInfo;
     if(JSON.parse(localStorage.getItem('userInfo'))){

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import AppBar from 'material-ui/AppBar';
 import NavigationBar from 'components/NavigationBar'
 import ResizeAware from 'react-resize-aware';
-
+import { Link, } from 'react-router';
 const AppWrapper = styled.div`
   display: flex;
   min-height: 100%;
@@ -50,9 +50,14 @@ export  class App extends React.Component {
       userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     }
     if(userInfo){
-      console.log("userInfo "+userInfo)
       if(location.pathname=='/login'){
         browserHistory.push('/')
+      }
+      let img = false;
+      if(userInfo.avatar && userInfo.avatar.length>1){
+        img = userInfo.avatar;
+      }else{
+        img = require('./maxresdefault.jpg');
       }
       content = (
         <AppWrapper>
@@ -64,10 +69,10 @@ export  class App extends React.Component {
               <NavigationBar widthNavigation={this.state.widthNavigation} changeNavigationBar={()=>this.clickIconButton()}/>
             </div>
             <div style={{width: `${100-this.state.widthNavigation}%`,display: 'flex', flexDirection: 'column'}}>
-              <div style={{height: 50, background:"#FFFFFF"}}>
+              <div style={{height: 50, background:"#448aff",boxShadow: "#054574 10px 10px 5px"}}>
                 <div style={{display:"inline-block",float:"right",padding: 5,marginRight: 10}}>
-                  <span style={{fontSize: 18,fontWeight: 600, color: "#1E88E5", marginRight: 10,verticalAlign: "bottom"}}>{userInfo.name}</span>
-                  <img src={require('./maxresdefault.jpg')} width='40' height='40' style={{borderRadius:50,border: "2px solid #1A237E"}}/>
+                  <Link to="/infoadmin"><span style={{textDecoration: "underline",fontSize: 18,fontWeight: 600, color: "#FFFFFF", marginRight: 10,verticalAlign: "bottom"}}>{userInfo.name}</span></Link>
+                  <img src={img} width='40' height='40' style={{borderRadius:50,border: "2px solid #1A237E"}}/>
                 </div>
               </div>
               <div style={{flex: 1,background: "#F5F5F5"}}>
