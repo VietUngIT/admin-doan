@@ -171,6 +171,7 @@ class InfoAdminPage extends React.Component {
           {editInfoPass}
           <div style={{display:"flex",flexDirection:"collumn",height:"100%",width: "100%"}}>
             <div style={{flex:5,height:"100%"}}>
+              <div style={{padding: 10,background: "#26c6da",textAlign: "center",fontSize: 16,fontWeight: 600,marginBottom:10}}>Quản lý thông tin cá nhân.</div>
               <div style={{padding:10,marginBottom:10}}>
                 <div style={{fontWeight:"bold",fontStyle:"italic",marginBottom:5}}>Tên:</div>
                 <div style={{display:"flex",flexDirection:"collumn",borderBottom: "1px dotted #000000"}}>
