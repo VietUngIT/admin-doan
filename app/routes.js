@@ -76,6 +76,27 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     },{
+      path: '/news',
+      name: 'news',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/ManagerNews/reducer'),
+          import('containers/ManagerNews/sagas'),
+          import('containers/ManagerNews'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('news', reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },{
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

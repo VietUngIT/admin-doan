@@ -107,3 +107,57 @@ export function callAPIChangePassUserInfo(phone,password,oldPass,newPass) {
     .then((data) => ( {data}))
     .catch((error) => ({ error }));
 }
+
+export function callAPIGetListCategoryNews(phone,password) {
+  const url = `${API_BASE_URL}categorynews?ph=${phone}&p=${password}&t=getall`;
+  return axios({ url,
+    method: 'GET',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  }).then(checkStatus)
+    .then((data) => ( {data}))
+    .catch((error) => ({ error }));
+}
+
+export function callAPIAddCategoryNews(phone,password,name) {
+  const url = `${API_BASE_URL}admincatenews?ph=${phone}&p=${password}&t=add&name=${name}`;
+  return axios({ url,
+    method: 'GET',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  }).then(checkStatus)
+    .then((data) => ( {data}))
+    .catch((error) => ({ error }));
+}
+export function callAPIDelCategoryNews(phone,password,id) {
+  const url = `${API_BASE_URL}admincatenews?ph=${phone}&p=${password}&t=del&id=${id}`;
+  return axios({ url,
+    method: 'GET',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  }).then(checkStatus)
+    .then((data) => ( {data}))
+    .catch((error) => ({ error }));
+}
+export function callAPIEditCategoryNews(phone,password,id,name) {
+  const url = `${API_BASE_URL}admincatenews?ph=${phone}&p=${password}&t=edit&id=${id}&name=${name}`;
+  return axios({ url,
+    method: 'GET',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  }).then(checkStatus)
+    .then((data) => ( {data}))
+    .catch((error) => ({ error }));
+}

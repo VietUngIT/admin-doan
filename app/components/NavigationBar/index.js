@@ -20,6 +20,11 @@ class NavigationBar extends React.Component {
       active: 1,
     };
   }
+
+  componentWillMount(){
+    console.log("componentWillMount")
+  }
+  
   changeNavigationBar=(width)=>{
     if(width===18){
       this.props.changeNavigationBar();
@@ -28,7 +33,9 @@ class NavigationBar extends React.Component {
     }
   }
   componentDidMount(){
-    if(location.pathname.toUpperCase().indexOf("/")>-1){
+    if(location.pathname.toUpperCase().indexOf("/NEWS")>-1){
+      this.setState({active: 2}); 
+    }else{
       this.setState({active: 1}); 
     }
   }
@@ -41,6 +48,11 @@ class NavigationBar extends React.Component {
       sessionStorage.removeItem("userInfo")
     }
     browserHistory.push('/login');
+  }
+
+  changeItemBar=(item)=>{
+    // console.log("changeItemBar: "+item)
+    this.setState({active: item}); 
   }
   
   render() {
@@ -58,15 +70,15 @@ class NavigationBar extends React.Component {
         </div>
         <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}}>
           <Link style={{textDecoration: 'none'}} to='/'>
-            <div style={{background:this.state.active===1?"#00B8D4":"#1A237E", width:"100%",height: 40}}>
+            <div style={{background:this.state.active===1?"#00B8D4":"#1A237E", width:"100%",height: 40}} onClick={(e)=>this.changeItemBar(1)}>
               <Icon type="appstore" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
               <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Home</SpanStyled>
             </div>
           </Link>
         </div>
         <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}}>
-          <Link style={{textDecoration: 'none'}} to='/'>
-            <div style={{background:"#1A237E", width: "100%",height: 40}}>
+          <Link style={{textDecoration: 'none'}} to='/news'>
+            <div style={{background:this.state.active===2?"#00B8D4":"#1A237E", width: "100%",height: 40}} onClick={(e)=>this.changeItemBar(2)}>
               <Icon type="copy" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
               <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>News</SpanStyled>
             </div>

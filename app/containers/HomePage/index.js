@@ -12,13 +12,43 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    return (
-      <h1>
+import CKEditor from "react-ckeditor-component";
+var editor;
+export default class HomePage extends React.Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+        content: "<p>I published a package on Npm for using CKEditor with React. It takes just 1 line of code to integrate in your project.</p><p>Github link -&nbsp;<a href='https://github.com/codeslayer1/react-ckeditor' rel='noreferrer'>https://github.com/codeslayer1/react-ckeditor</a>.</p><p>How to Use?</p>",
         
-      </h1>
-    );
-  }
+    }
+}
+
+onChange=(evt)=>{
+  //console.log("onChange fired with event info: ", evt);
+  var content = evt.editor.getData();
+  console.log("content: \n"+content);
+  this.setState({ content });
+}
+
+onBlur(evt){
+  console.log("onBlur event called with event info: ", evt);
+}
+
+afterPaste(evt){
+  console.log("afterPaste event called with event info: ", evt);
+}
+
+render() {
+    return (
+        <CKEditor 
+          activeClass="p10" 
+          content={this.state.content} 
+          events={{
+            "blur": this.onBlur,
+            "afterPaste": this.afterPaste,
+            "change": this.onChange
+          }}
+         />
+    )
+}
 }
