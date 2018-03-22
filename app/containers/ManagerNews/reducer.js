@@ -15,6 +15,8 @@ import {
   DEL_CATE_NEWS_ACTION_SUCCESS,
   EDIT_CATE_NEWS_ACTION,
   EDIT_CATE_NEWS_ACTION_SUCCESS,
+  GET_LIST_NEWS_BY_CATE_ACTION,
+  GET_LIST_NEWS_BY_CATE_ACTION_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -23,6 +25,9 @@ const initialState = fromJS({
   idCateDel: false,
   idCateEdit: false,
   nameCate: false,
+  showNameCate: false,
+  listNewsByCate:[],
+  idCateGetNews: false,
 });
 
 function managerNewsReducer(state = initialState, action) {
@@ -53,6 +58,13 @@ function managerNewsReducer(state = initialState, action) {
     case GET_LIST_CATE_NEWS_ACTION_SUCCESS:
       return state
       .update('listcategorynews', listcategorynews => listcategorynews.concat(action.categoryNews))
+    case GET_LIST_NEWS_BY_CATE_ACTION:
+      return state
+      .set("showNameCate",action.name)
+      .set("idCateGetNews",action.id)
+    case GET_LIST_NEWS_BY_CATE_ACTION_SUCCESS:
+      return state
+      .update('listNewsByCate', listNewsByCate => listNewsByCate.concat(action.listNews))
     default:
       return state;
   }

@@ -161,3 +161,16 @@ export function callAPIEditCategoryNews(phone,password,id,name) {
     .then((data) => ( {data}))
     .catch((error) => ({ error }));
 }
+export function callAPIGetListNewsByCate(phone,password,id,page) {
+  const url = `${API_BASE_URL}news?ph=${phone}&p=${password}&t=getbycate&idcate=${id}&ofset=5&page=${page}`;
+  return axios({ url,
+    method: 'GET',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  }).then(checkStatus)
+    .then((data) => ( {data}))
+    .catch((error) => ({ error }));
+}

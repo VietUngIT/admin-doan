@@ -25,7 +25,8 @@ class CategoryNews extends React.Component {
     let listcat = null;
     if(this.props.listCategoryNews && this.props.listCategoryNews.size>0){
       listcat = this.props.listCategoryNews.map((item,index) => {
-        return (<ItemCategoryNews key={index} data={item} delCateNews={this.props.delCateNews} editCateNews={this.props.editCateNews}/>);
+        return (<ItemCategoryNews key={index} data={item} delCateNews={this.props.delCateNews} editCateNews={this.props.editCateNews}
+          getListNewsByCate={this.props.getListNewsByCate}/>);
       });
     }
     return (

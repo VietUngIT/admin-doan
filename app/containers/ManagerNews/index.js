@@ -16,19 +16,26 @@ import {
   addCateNews,
   delCateNews,
   editCateNews,
+  getListNewsByCate,
 } from './actions';
 import {
   selectCategoryNewsName,
   selectCategoryNewsList,
+  selectidCateGetNews,
+  selectshowNameCate,
+  selectlistNewsByCate,
 } from './selectors';
 
 export class ManagerNews extends React.Component { 
   componentWillMount(){
     this.props.getListCateNews();
+    if(this.props.idCateGetNews && this.props.nameCateGetNews){
+      this.props.getListNewsByCate(this.props.idCateGetNews,this.props.nameCateGetNews);
+    }
   }
   render() {
     return (
-      <div>
+      <div style={{height:'100%'}}>
         <Helmet
           title="ManagerNews"
           meta={[
@@ -36,7 +43,8 @@ export class ManagerNews extends React.Component {
           ]}
         />
         <CmanagerNews listCategoryNews={this.props.listCategoryNews} addCateNews={this.props.addCateNews} delCateNews={this.props.delCateNews}
-          editCateNews={this.props.editCateNews}/>
+          editCateNews={this.props.editCateNews} getListNewsByCate={this.props.getListNewsByCate} nameCateGetNews={this.props.nameCateGetNews}
+          listNews={this.props.listNews}/>
       </div>
     );
   }
@@ -49,6 +57,9 @@ ManagerNews.propTypes = {
 const mapStateToProps = createStructuredSelector({
   listCategoryNews: selectCategoryNewsList(),
   nameCategoryNews: selectCategoryNewsName(),
+  idCateGetNews: selectidCateGetNews(),
+  nameCateGetNews: selectshowNameCate(),
+  listNews: selectlistNewsByCate(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -57,6 +68,7 @@ function mapDispatchToProps(dispatch) {
     addCateNews: (categoryNews)=> dispatch(addCateNews(categoryNews)),
     delCateNews: (id)=> dispatch(delCateNews(id)),
     editCateNews: (id,nameCate)=> dispatch(editCateNews(id,nameCate)),
+    getListNewsByCate: (id,name)=> dispatch(getListNewsByCate(id,name)),
     dispatch,
   };
 }

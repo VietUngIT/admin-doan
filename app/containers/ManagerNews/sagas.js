@@ -5,13 +5,15 @@ import {
   GET_LIST_CATE_NEWS_ACTION,
   ADD_CATE_NEWS_ACTION,
   DEL_CATE_NEWS_ACTION,
-  EDIT_CATE_NEWS_ACTION
+  EDIT_CATE_NEWS_ACTION,
+  GET_LIST_NEWS_BY_CATE_ACTION,
 } from './constants';
 import { 
   getListCateNewsSuccess,
   addCateNewsSuccess,
   delCateNewsSuccess,
   editCateNewsSuccess,
+  getListNewsByCateSuccess,
 } from './actions';
 import {message,} from 'antd';
 import {
@@ -19,12 +21,14 @@ import {
   callAPIAddCategoryNews,
   callAPIDelCategoryNews,
   callAPIEditCategoryNews,
+  callAPIGetListNewsByCate,
 } from 'utils/request';
 import {
   selectCategoryNewsName,
   selectIdCategoryNewsDel,
   selectIdCategoryNewsEdit,
   selectNameCategoryNewsEdit,
+  selectidCateGetNews,
 } from './selectors';
 
 export function* getListCategoryNews() {
@@ -139,16 +143,45 @@ export function* editCategoryNewsWatcher() {
   }
 }
 
+export function* getListNewsByCate() {
+  let userInfo = null;
+  userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  if(userInfo == null){
+    userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+  }
+  const id = yield select(selectidCateGetNews());
+  const response = yield call(callAPIGetListNewsByCate,userInfo.phone,userInfo.password,id,0);
+  try{
+    if (response.data.data.e==0) {
+        yield put(getListNewsByCateSuccess(response.data.data.array));
+    } else {
+      message.error(response.data.data.msg);
+    }
+  } catch(error){
+          message.error(response.data.data.e);
+          message.error('Lỗi đăng nhập !');
+  }
+  
+}
+
+export function* getListNewsByCateWatcher() {
+  while (yield take(GET_LIST_NEWS_BY_CATE_ACTION)) {
+    yield call(getListNewsByCate);
+  }
+}
+
 export function* newsData() {
   const watchergetListCategoryNews = yield fork(getListCategoryNewsWatcher);
   const watcheraddCategoryNews = yield fork(addCategoryNewsWatcher);
   const watcherdelCategoryNews = yield fork(delCategoryNewsWatcher);
   const watchereditCategoryNews = yield fork(editCategoryNewsWatcher);
+  const watchergetListNewsByCate = yield fork(getListNewsByCateWatcher);
   if(yield take(LOCATION_CHANGE)){
     yield cancel(watchergetListCategoryNews);
     yield cancel(watcheraddCategoryNews);
     yield cancel(delCategoryNews);
     yield cancel(watchereditCategoryNews);
+    yield cancel(watchergetListNewsByCate);
   }
 }
 

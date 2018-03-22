@@ -6,6 +6,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    display: flex;
   }
 
   body {
@@ -20,7 +21,6 @@ injectGlobal`
     background-color: #fafafa;
     min-height: 100%;
     min-width: 100%;
-    display: initial;
   }
 
   p,

@@ -14,7 +14,23 @@ import {
   DEL_CATE_NEWS_ACTION_SUCCESS,
   EDIT_CATE_NEWS_ACTION,
   EDIT_CATE_NEWS_ACTION_SUCCESS,
+  GET_LIST_NEWS_BY_CATE_ACTION,
+  GET_LIST_NEWS_BY_CATE_ACTION_SUCCESS,
 } from './constants';
+
+export function getListNewsByCate(id,name) {
+  return {
+    type: GET_LIST_NEWS_BY_CATE_ACTION,
+    id,
+    name,
+  };
+}
+export function getListNewsByCateSuccess(listNews) {
+  return {
+    type: GET_LIST_NEWS_BY_CATE_ACTION_SUCCESS,
+    listNews,
+  };
+}
 
 export function editCateNews(id,nameCate) {
   return {

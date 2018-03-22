@@ -13,7 +13,10 @@ import { Tooltip, Icon } from 'antd'
 
 class ItemCategoryNews extends React.Component {
   viewDetail=()=>{
-    console.log("viewDetail: "+this.refs.categoryedit.value)
+    if(this.props.data){
+      this.props.getListNewsByCate(this.props.data.id,this.props.data.name)
+    }
+    
   }
   onClickEdit=()=>{
     console.log("onClickEdit: "+this.refs.categoryedit.value)
