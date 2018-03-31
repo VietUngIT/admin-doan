@@ -110,7 +110,7 @@ export class MarketInfoDetail extends React.Component {
             {page}
           </div>
         </div>
-        <div style={{flex:6,background: "#7C4DFF"}}>
+        <div style={{flex:6}}>
           {newsInfo}
         </div>
       </div>

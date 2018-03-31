@@ -34,13 +34,13 @@ export class SubCateAgriTech extends React.Component {
   }
   render() {
     return (
-      <div style={{width:`75%`,height: '100%',background: "#000", display: 'flex', flexDirection: 'collumn'}}>
-        <div style={{flex:40, height: '100%', background: '#2979FF'}}>
+      <div style={{width:`75%`,height: '100%',display: 'flex', flexDirection: 'collumn'}}>
+        <div style={{flex:40, height: '100%'}}>
           <CsubCateAgriTech idCate={this.props.params.id_cate_news} listSubCate={this.props.listSubCate} 
             nameCate={this.props.nameCate} addSubCate={this.props.addSubCate} delSubCate={this.props.delSubCate}
             editSubCate={this.props.editSubCate} setSubCateName={this.props.setSubCateName}/>
         </div>
-        <div style={{flex:60, height: '100%', background: '#7C4DFF'}}>
+        <div style={{flex:60, height: '100%'}}>
           {React.Children.toArray(this.props.children)}
         </div>
       </div>

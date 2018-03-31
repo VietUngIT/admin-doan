@@ -14,6 +14,20 @@ class ItemNews extends React.Component {
   viewDetailNews(){
     browserHistory.push(`/news/${this.props.data.idCateNews}/${this.props.data.id}`)
   }
+  convertTime (time){
+    var d = new Date(time),
+    yyyy = d.getFullYear(),
+    mm = ('0' + (d.getMonth() + 1)).slice(-2),
+    dd = ('0' + d.getDate()).slice(-2),
+    hh = ('0' + d.getHours()).slice(-2),
+    min = ('0' + d.getMinutes()).slice(-2),
+
+    result, time;
+    time = hh + ':' + min;
+    const date =   dd+ '/' + mm + '/'+ yyyy ;
+    result =date+" "+ time ;
+    return result;
+  }
   render() {
     let title = "";
     let desc = "";
@@ -47,7 +61,7 @@ class ItemNews extends React.Component {
           </div> 
           <div style={{flexDirection: 'row',display: 'flex',width: '90%',margin: 'auto',paddingTop:5}}>
             <div style={{flex: 6,textAlign: 'left',fontStyle:"italic"}}>
-              {date}
+              {this.convertTime(date)}
             </div>
             <div style={{flex: 4,display:'flex',flexDirection:"row"}}>
               <div style={{flex:1}}>

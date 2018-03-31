@@ -10,6 +10,20 @@ class ItemNewsAgriTech extends React.Component {
   viewDetailNews(){
     browserHistory.push(`/agritech/${this.props.idCate}/${this.props.data.idSubCate}/${this.props.data.id}`)
   }
+  convertTime (time){
+    var d = new Date(time),
+    yyyy = d.getFullYear(),
+    mm = ('0' + (d.getMonth() + 1)).slice(-2),
+    dd = ('0' + d.getDate()).slice(-2),
+    hh = ('0' + d.getHours()).slice(-2),
+    min = ('0' + d.getMinutes()).slice(-2),
+
+    result, time;
+    time = hh + ':' + min;
+    const date =   dd+ '/' + mm + '/'+ yyyy ;
+    result =date+" "+ time ;
+    return result;
+  }
   render() {
     let title = "";
     let image = require('containers/App/maxresdefault.jpg');
@@ -35,7 +49,7 @@ class ItemNewsAgriTech extends React.Component {
           <div style={{flexDirection: 'row',display: 'flex',width: '90%',margin: 'auto',paddingTop:5}}>
             <div style={{flex: 6,textAlign: 'left',fontStyle:"italic"}}>
               <Icon type="calendar" style={{textAlign: 'center',color:'#00B0FF',verticalAlign: 'text-bottom',marginRight: 2,fontSize: 14}}/>
-              <span>{date}</span>
+              <span>{this.convertTime(date)}</span>
             </div>
             <div style={{flex: 4}}>
               <div style={{flex:1}}>

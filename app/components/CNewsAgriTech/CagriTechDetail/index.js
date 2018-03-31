@@ -6,6 +6,7 @@ import styles from './styles';
 import CKEditor from "react-ckeditor-component";
 import Tags from '../../Utils/Tags'
 import {Button,Modal} from 'antd'
+import ModalAddAgriTech from 'components/CNewsAgriTech/ModalAddAgriTech'
 
 const Button_ = styled.button`
   height: 35px;
@@ -141,7 +142,7 @@ class CagriTechDetail extends React.Component {
           }     
         })
         modalAdd = (
-          <ModalAddNewsMK modalAddNews={this.state.modalAddNews} handleCloseModalAdd={this.handleCloseModalAdd}
+          <ModalAddAgriTech modalAddNews={this.state.modalAddNews} handleCloseModalAdd={this.handleCloseModalAdd}
             listSubCate={this.props.listSubCate} errorCode={this.props.errorCode} idsubcate={this.props.data[0].idSubCate}
             addNewsAgriTech={this.props.addNewsAgriTech}/>
         )
