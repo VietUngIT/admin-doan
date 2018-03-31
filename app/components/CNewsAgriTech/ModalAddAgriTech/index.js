@@ -139,7 +139,7 @@ class ModalAddAgriTech extends React.Component {
           </div>
         </div>
         <div style={{marginBottom:10}}>
-          <div style={styles.label}>Hình ảnh: </div>
+          <div style={styles.label}>Hình ảnh: </div> 
           <div>
             <div style={{width:240,height:200,margin:"auto",marginBottom:20,position: 'relative'}}>
               <img src={require('containers/App/maxresdefault.jpg')} id="imgAddNewsAgriTech" ref="imageForNewsAgriTech" width='100%' height='100%' style={{border: "1px solid #1A237E"}}/>
