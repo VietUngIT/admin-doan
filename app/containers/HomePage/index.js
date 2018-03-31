@@ -21,14 +21,13 @@ export default class HomePage extends React.Component {
         content: "<p>I published a package on Npm for using CKEditor with React. It takes just 1 line of code to integrate in your project.</p><p>Github link -&nbsp;<a href='https://github.com/codeslayer1/react-ckeditor' rel='noreferrer'>https://github.com/codeslayer1/react-ckeditor</a>.</p><p>How to Use?</p>",
         
     }
-}
+  }
 
-onChange=(evt)=>{
-  //console.log("onChange fired with event info: ", evt);
-  var content = evt.editor.getData();
-  console.log("content: \n"+content);
-  this.setState({ content });
-}
+  onChange=(evt)=>{
+    var content = evt.editor.getData();
+    console.log("content: \n"+content);
+    this.setState({ content });
+  }
 
 onBlur(evt){
   console.log("onBlur event called with event info: ", evt);

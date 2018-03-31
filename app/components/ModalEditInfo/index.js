@@ -38,7 +38,6 @@ class ModalEditInfo extends React.Component {
   save=()=>{
     if(this.refs.valueinput.refs.input.value.trim()!==""){
       this.props.editInfo(this.refs.valueinput.refs.input.value.trim());
-      console.log(this.refs.valueinput.refs.input.value.trim())
       this.props.cancel();
     }else{
       message.error("Không được để trống !")

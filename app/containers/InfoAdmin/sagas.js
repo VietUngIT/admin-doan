@@ -42,7 +42,6 @@ export function* getinfoAdmin() {
   }
   const response = yield call(callAPIGetUserInfo,userInfo.phone,userInfo.password);
   try{
-    console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
         yield put(getinfoAdminSuccess(response.data.data.data));
     } else {
@@ -70,7 +69,6 @@ export function* changeNameAdmin() {
   const name = yield select(selectName());
   const response = yield call(callAPIChangeNameUserInfo,userInfo.phone,userInfo.password,name);
   try{
-    console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
       message.success("Update thành công.")
       yield put(changeNameAdminSuccess(response.data.data.data));
@@ -103,7 +101,6 @@ export function* changePhoneAdmin() {
   const newPhone = yield select(selectNewPhone());
   const response = yield call(callAPIChangePhoneUserInfo,userInfo.phone,userInfo.password,newPhone);
   try{
-    console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
       message.success("Update thành công.")
       yield put(changePhoneAdminSuccess(response.data.data.data));
@@ -136,7 +133,6 @@ export function* changeAddressAdmin() {
   const address = yield select(selectAddress());
   const response = yield call(callAPIChangeAddressUserInfo,userInfo.phone,userInfo.password,address);
   try{
-    console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
       message.success("Update thành công.")
       yield put(changeAddressAdminSuccess(response.data.data.data));
@@ -169,7 +165,6 @@ export function* changeAvatarAdmin() {
   const avatar = yield select(selectAvatar());
   const response = yield call(callAPIChangeAvatarUserInfo,userInfo.phone,userInfo.password,avatar);
   try{
-    console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
       message.success("Update thành công.")
       yield put(changeAvatarAdminSuccess(response.data.data.data));
@@ -203,7 +198,6 @@ export function* changePassAdmin() {
   const newPass = yield select(selectNewPass());
   const response = yield call(callAPIChangePassUserInfo,userInfo.phone,userInfo.password,oldPass,newPass);
   try{
-    console.log("response.data.data: "+response.data.data.e)
     if (response.data.data.e==0) {
       message.success("Update thành công.")
       yield put(changePassAdminSuccess(response.data.data.data));

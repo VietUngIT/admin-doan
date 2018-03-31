@@ -65,17 +65,17 @@ export  class App extends React.Component {
             onlyEvent 
             onResize={this.handleResize}
           >
-            <div style={{width: `${this.state.widthNavigation}%`,minWidth: 60,background:'#1E88E5',overflow: 'hidden',transition: 'width 0.5s',}}>
+            <div style={{width: `${this.state.widthNavigation}%`,minWidth: 60,background:'#1E88E5',overflowX: 'hidden',transition: 'width 0.5s',height:"100%",minHeight:'100%'}}>
               <NavigationBar widthNavigation={this.state.widthNavigation} changeNavigationBar={()=>this.clickIconButton()}/>
             </div>
-            <div style={{width: `${100-this.state.widthNavigation}%`,display: 'flex', flexDirection: 'column'}}>
+            <div style={{width: `${100-this.state.widthNavigation}%`,display: 'flex', flexDirection: 'column',height: '100%'}}>
               <div style={{height: 50, background:"#448aff",boxShadow: "#054574 10px 10px 5px"}}>
                 <div style={{display:"inline-block",float:"right",padding: 5,marginRight: 10}}>
                   <Link to="/infoadmin"><span style={{textDecoration: "underline",fontSize: 18,fontWeight: 600, color: "#FFFFFF", marginRight: 10,verticalAlign: "bottom"}}>{userInfo.name}</span></Link>
                   <img src={img} width='40' height='40' style={{borderRadius:50,border: "2px solid #1A237E"}}/>
                 </div>
               </div>
-              <div style={{flex: 1,background: "#F5F5F5"}}>
+              <div style={{flex: 1,background: "#F5F5F5",height: '100%',overflow: 'auto'}}>
                 {React.Children.toArray(this.props.children)}
               </div>
             </div>
@@ -93,7 +93,7 @@ export  class App extends React.Component {
       )
     }
     return (
-      <div style={{height:'100%',borderBottom:"2px solid #37474F",borderTop:"2px solid #37474F",borderRight:"2px solid #37474F"}}>
+      <div style={{height:'100%',borderBottom:"2px solid #37474F",borderTop:"2px solid #37474F",borderRight:"2px solid #37474F",minHeight: '100%',overflow: 'hidden'}}>
         {content}
       </div>
     );

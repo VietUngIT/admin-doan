@@ -48,7 +48,6 @@ export function submitChangeAvatarAdmin() {
   };
 }
 export function changeAvatarAdmin(avatar) {
-  console.log("action: \n"+avatar)
   return {
     type: CHANGE_AVATAR_ACTION,
     avatar,

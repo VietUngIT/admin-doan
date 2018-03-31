@@ -11,6 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import messages from './messages';
 import CmanagerNews from 'components/CmanagerNews'
+import CategoryNews from 'components/item/CategoryNews'
+
 import {
   getListCateNews,
   addCateNews,
@@ -21,19 +23,27 @@ import {
 import {
   selectCategoryNewsName,
   selectCategoryNewsList,
-  selectidCateGetNews,
-  selectshowNameCate,
-  selectlistNewsByCate,
 } from './selectors';
 
 export class ManagerNews extends React.Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      widthCategoryNew: 40,
+      widthListNew: 60,
+    };
+  }
   componentWillMount(){
     this.props.getListCateNews();
-    if(this.props.idCateGetNews && this.props.nameCateGetNews){
-      this.props.getListNewsByCate(this.props.idCateGetNews,this.props.nameCateGetNews);
-    }
+    // if(this.props.idCateGetNews && this.props.nameCateGetNews){
+    //   this.props.getListNewsByCate(this.props.idCateGetNews,this.props.nameCateGetNews);
+    // }
   }
   render() {
+    // <CmanagerNews listCategoryNews={this.props.listCategoryNews} addCateNews={this.props.addCateNews} delCateNews={this.props.delCateNews}
+    //       editCateNews={this.props.editCateNews} getListNewsByCate={this.props.getListNewsByCate} nameCateGetNews={this.props.nameCateGetNews}
+    //       listNews={this.props.listNews}/>
+
     return (
       <div style={{height:'100%'}}>
         <Helmet
@@ -42,9 +52,11 @@ export class ManagerNews extends React.Component {
             { name: 'description', content: 'Description of ManagerNews' },
           ]}
         />
-        <CmanagerNews listCategoryNews={this.props.listCategoryNews} addCateNews={this.props.addCateNews} delCateNews={this.props.delCateNews}
-          editCateNews={this.props.editCateNews} getListNewsByCate={this.props.getListNewsByCate} nameCateGetNews={this.props.nameCateGetNews}
-          listNews={this.props.listNews}/>
+        <div style={{display: "flex",flexDirection:"collumn",}}>
+          <CategoryNews widthCategoryNew={this.state.widthCategoryNew} listCategoryNews={this.props.listCategoryNews} addCateNews={this.props.addCateNews} delCateNews={this.props.delCateNews}
+            editCateNews={this.props.editCateNews} getListNewsByCate={this.props.getListNewsByCate}/>
+          {React.Children.toArray(this.props.children)}
+        </div>
       </div>
     );
   }
@@ -56,10 +68,6 @@ ManagerNews.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   listCategoryNews: selectCategoryNewsList(),
-  nameCategoryNews: selectCategoryNewsName(),
-  idCateGetNews: selectidCateGetNews(),
-  nameCateGetNews: selectshowNameCate(),
-  listNews: selectlistNewsByCate(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -68,7 +76,7 @@ function mapDispatchToProps(dispatch) {
     addCateNews: (categoryNews)=> dispatch(addCateNews(categoryNews)),
     delCateNews: (id)=> dispatch(delCateNews(id)),
     editCateNews: (id,nameCate)=> dispatch(editCateNews(id,nameCate)),
-    getListNewsByCate: (id,name)=> dispatch(getListNewsByCate(id,name)),
+    getListNewsByCate: (name)=>dispatch(getListNewsByCate(name)),
     dispatch,
   };
 }

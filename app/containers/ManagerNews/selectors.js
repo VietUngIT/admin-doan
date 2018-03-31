@@ -22,27 +22,17 @@ const selectNameCategoryNewsEdit = () => createSelector(
   selectManagerNewsDomain(),
   (substate) => substate.get('nameCate')
 );
-const selectidCateGetNews = () => createSelector(
-  selectManagerNewsDomain(),
-  (substate) => substate.get('idCateGetNews')
-);
-const selectshowNameCate = () => createSelector(
+const selectNameCategoryGetListNews = () => createSelector(
   selectManagerNewsDomain(),
   (substate) => substate.get('showNameCate')
 );
-const selectlistNewsByCate = () => createSelector(
-  selectManagerNewsDomain(),
-  (substate) => substate.get('listNewsByCate')
-);
 
 export {
-  selectlistNewsByCate,
-  selectshowNameCate,
-  selectidCateGetNews,
   selectManagerNewsDomain,
   selectCategoryNewsName,
   selectCategoryNewsList,
   selectIdCategoryNewsDel,
   selectIdCategoryNewsEdit,
   selectNameCategoryNewsEdit,
+  selectNameCategoryGetListNews,
 };

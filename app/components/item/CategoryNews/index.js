@@ -23,10 +23,10 @@ class CategoryNews extends React.Component {
   }
   render() {
     let listcat = null;
-    if(this.props.listCategoryNews && this.props.listCategoryNews.size>0){
+    if(this.props.listCategoryNews && (this.props.listCategoryNews.size>0|| this.props.listCategoryNews.length>0)){
       listcat = this.props.listCategoryNews.map((item,index) => {
         return (<ItemCategoryNews key={index} data={item} delCateNews={this.props.delCateNews} editCateNews={this.props.editCateNews}
-          getListNewsByCate={this.props.getListNewsByCate}/>);
+          getListNewsByCate={this.props.getListNewsByCate} idCateGetNews={this.props.idCateGetNews} getListNewsByCate={this.props.getListNewsByCate}/>);
       });
     }
     return (
@@ -37,6 +37,7 @@ class CategoryNews extends React.Component {
           </div>
           <div style={{height:35, marginTop: 5}}>
             <table style={{width: '100%'}}>
+            <tbody>
               <tr style={{display: "flex"}}>
                 <th style={{flex: 1,border: "1px solid #dddddd"}}>Lĩnh vực</th>
                 <th style={{border: "1px solid #dddddd",paddingTop: 2,height: 32,flexBasis: 80}}>action</th>
@@ -52,6 +53,7 @@ class CategoryNews extends React.Component {
                 </td>
               </tr>
               {listcat}
+            </tbody>
             </table>
           </div>
         </div>

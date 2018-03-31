@@ -39,7 +39,6 @@ const Input_ = styled.input`
 //var textError = null;
 class LoginPage extends React.Component { 
   loginPhone=()=>{
-    console.log("this.refs.phone: ",this.refs.phone)
     if(this.refs.phone.props.value!=null && this.refs.password.props.value != null &&
       this.refs.phone.props.value.trim() !="" && this.refs.password.props.value.trim() !=""){
       this.props.loginPhone(this.refs.phone.props.value.trim(),this.refs.password.props.value.trim());

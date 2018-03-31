@@ -14,21 +14,13 @@ import {
   DEL_CATE_NEWS_ACTION_SUCCESS,
   EDIT_CATE_NEWS_ACTION,
   EDIT_CATE_NEWS_ACTION_SUCCESS,
-  GET_LIST_NEWS_BY_CATE_ACTION,
-  GET_LIST_NEWS_BY_CATE_ACTION_SUCCESS,
+  NAME_GET_LIST_NEWS_BY_CATE_ACTION,
 } from './constants';
 
-export function getListNewsByCate(id,name) {
+export function getListNewsByCate(name) {
   return {
-    type: GET_LIST_NEWS_BY_CATE_ACTION,
-    id,
+    type: NAME_GET_LIST_NEWS_BY_CATE_ACTION,
     name,
-  };
-}
-export function getListNewsByCateSuccess(listNews) {
-  return {
-    type: GET_LIST_NEWS_BY_CATE_ACTION_SUCCESS,
-    listNews,
   };
 }
 

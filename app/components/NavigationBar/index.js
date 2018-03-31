@@ -22,7 +22,7 @@ class NavigationBar extends React.Component {
   }
 
   componentWillMount(){
-    console.log("componentWillMount")
+    // console.log("componentWillMount")
   }
   
   changeNavigationBar=(width)=>{
@@ -35,6 +35,10 @@ class NavigationBar extends React.Component {
   componentDidMount(){
     if(location.pathname.toUpperCase().indexOf("/NEWS")>-1){
       this.setState({active: 2}); 
+    }else if(location.pathname.toUpperCase().indexOf("/MARKETINFO")>-1){
+      this.setState({active: 3}); 
+    }else if(location.pathname.toUpperCase().indexOf("/AGRITECH")>-1){
+      this.setState({active: 4}); 
     }else{
       this.setState({active: 1}); 
     }
@@ -80,23 +84,23 @@ class NavigationBar extends React.Component {
           <Link style={{textDecoration: 'none'}} to='/news'>
             <div style={{background:this.state.active===2?"#00B8D4":"#1A237E", width: "100%",height: 40}} onClick={(e)=>this.changeItemBar(2)}>
               <Icon type="copy" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
-              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>News</SpanStyled>
+              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Tin Tức</SpanStyled>
             </div>
           </Link>
         </div>
-        <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}}>
-          <Link style={{textDecoration: 'none'}} to='/'>
-            <div style={{background:"#1A237E", width: "100%",height: 40}}>
+        <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}} onClick={(e)=>this.changeItemBar(3)}>
+          <Link style={{textDecoration: 'none'}} to='/marketinfo'>
+            <div style={{background:this.state.active===3?"#00B8D4":"#1A237E", width: "100%",height: 40}}>
               <Icon type="line-chart" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
-              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Giá cả thị trường.</SpanStyled>
+              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Thị trường.</SpanStyled>
             </div>
           </Link>
         </div>
-        <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}}>
-          <Link style={{textDecoration: 'none'}} to='/'>
-            <div style={{background:"#1A237E", width: "100%",height: 40}}>
+        <div style={{paddingTop: 15,paddingLeft:10,paddingRight:10,marginBottom: 7}} onClick={(e)=>this.changeItemBar(4)}>
+          <Link style={{textDecoration: 'none'}} to='/agritech'>
+            <div style={{background:this.state.active===4?"#00B8D4":"#1A237E", width: "100%",height: 40}}>
               <Icon type="edit" style={{width:this.props.widthNavigation===18?"25%":"100%",fontSize: 18,color: "#ffffff",marginTop: 11,}}/>
-              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Bình luận</SpanStyled>
+              <SpanStyled style={{display:this.props.widthNavigation===18?"":"none",color:"#FFF",fontSize:"16px"}}>Tin kỹ thuật</SpanStyled>
             </div>
           </Link>
         </div>

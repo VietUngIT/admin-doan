@@ -8,10 +8,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { Button, Icon } from 'antd'
+import { browserHistory } from 'react-router';
 
 class ItemNews extends React.Component { 
   viewDetailNews(){
-    console.log("viewDetailNews")
+    browserHistory.push(`/news/${this.props.data.idCateNews}/${this.props.data.id}`)
   }
   render() {
     let title = "";
@@ -35,18 +36,18 @@ class ItemNews extends React.Component {
         <div style={{display:"inline-block"}}>
           <img src={image} id="imgstore" width='140px' height='120px' />
         </div>
-        <div style={{height:120,flex:1}}>
+        <div style={{height:120,flex:1,width:"70%"}}>
           <div style={{width:'90%',margin:'auto',borderBottom:"1px solid",padding:5}}>
             <div style={{fontSize:16,fontWeight:600,color:'#448aff',overflow: 'hidden',whiteSpace: 'nowrap',textOverflow: "ellipsis"}}>
               {title}
             </div>
           </div>
-          <div style={{textAlign:'left',width: '90%',margin: 'auto',paddingTop: 5,overflow: 'hidden',textOverflow: "ellipsis"}}>
+          <div style={{textAlign:'left',height: 60,width: '90%',margin: 'auto',paddingTop: 5,overflow: 'hidden',textOverflow: "ellipsis"}}>
             {desc}
           </div> 
           <div style={{flexDirection: 'row',display: 'flex',width: '90%',margin: 'auto',paddingTop:5}}>
             <div style={{flex: 6,textAlign: 'left',fontStyle:"italic"}}>
-              Ngày cập nhật: {date}
+              {date}
             </div>
             <div style={{flex: 4,display:'flex',flexDirection:"row"}}>
               <div style={{flex:1}}>
@@ -63,7 +64,7 @@ class ItemNews extends React.Component {
               </div>
             </div>
             <div style={{flexBasis: 70}}>
-              <div style={{textDecoration: 'underline',color: '#1976D2'}} onClick={()=>this.viewDetailNews()}>Chi tiết >></div>
+              <div style={{textDecoration: 'underline',color: '#1976D2',cursor: 'pointer'}} onClick={()=>this.viewDetailNews()}>Chi tiết >></div>
             </div>
           </div>
         </div>

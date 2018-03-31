@@ -6,14 +6,12 @@ import {
   ADD_CATE_NEWS_ACTION,
   DEL_CATE_NEWS_ACTION,
   EDIT_CATE_NEWS_ACTION,
-  GET_LIST_NEWS_BY_CATE_ACTION,
 } from './constants';
 import { 
   getListCateNewsSuccess,
   addCateNewsSuccess,
   delCateNewsSuccess,
   editCateNewsSuccess,
-  getListNewsByCateSuccess,
 } from './actions';
 import {message,} from 'antd';
 import {
@@ -21,14 +19,12 @@ import {
   callAPIAddCategoryNews,
   callAPIDelCategoryNews,
   callAPIEditCategoryNews,
-  callAPIGetListNewsByCate,
 } from 'utils/request';
 import {
   selectCategoryNewsName,
   selectIdCategoryNewsDel,
   selectIdCategoryNewsEdit,
   selectNameCategoryNewsEdit,
-  selectidCateGetNews,
 } from './selectors';
 
 export function* getListCategoryNews() {
@@ -39,7 +35,6 @@ export function* getListCategoryNews() {
   }
   const response = yield call(callAPIGetListCategoryNews,userInfo.phone,userInfo.password);
   try{
-    console.log("response.data.data.array: \n"+response.data.data.array.toString())
     if (response.data.data.e==0) {
         yield put(getListCateNewsSuccess(response.data.data.array));
     } else {
@@ -102,8 +97,8 @@ export function* delCategoryNews() {
       message.error(response.data.data.msg);
     }
   } catch(error){
-          message.error(response.data.data.e);
-          message.error('Lỗi đăng nhập !');
+    message.error(response.data.data.e);
+    message.error('Lỗi đăng nhập !');
   }
   
 }
@@ -131,8 +126,8 @@ export function* editCategoryNews() {
       message.error(response.data.data.msg);
     }
   } catch(error){
-          message.error(response.data.data.e);
-          message.error('Lỗi đăng nhập !');
+    message.error(response.data.data.e);
+    message.error('Lỗi đăng nhập !');
   }
   
 }
@@ -142,46 +137,16 @@ export function* editCategoryNewsWatcher() {
     yield call(editCategoryNews);
   }
 }
-
-export function* getListNewsByCate() {
-  let userInfo = null;
-  userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  if(userInfo == null){
-    userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-  }
-  const id = yield select(selectidCateGetNews());
-  const response = yield call(callAPIGetListNewsByCate,userInfo.phone,userInfo.password,id,0);
-  try{
-    if (response.data.data.e==0) {
-        yield put(getListNewsByCateSuccess(response.data.data.array));
-    } else {
-      message.error(response.data.data.msg);
-    }
-  } catch(error){
-          message.error(response.data.data.e);
-          message.error('Lỗi đăng nhập !');
-  }
-  
-}
-
-export function* getListNewsByCateWatcher() {
-  while (yield take(GET_LIST_NEWS_BY_CATE_ACTION)) {
-    yield call(getListNewsByCate);
-  }
-}
-
 export function* newsData() {
   const watchergetListCategoryNews = yield fork(getListCategoryNewsWatcher);
   const watcheraddCategoryNews = yield fork(addCategoryNewsWatcher);
   const watcherdelCategoryNews = yield fork(delCategoryNewsWatcher);
   const watchereditCategoryNews = yield fork(editCategoryNewsWatcher);
-  const watchergetListNewsByCate = yield fork(getListNewsByCateWatcher);
   if(yield take(LOCATION_CHANGE)){
     yield cancel(watchergetListCategoryNews);
     yield cancel(watcheraddCategoryNews);
-    yield cancel(delCategoryNews);
+    yield cancel(watcherdelCategoryNews);
     yield cancel(watchereditCategoryNews);
-    yield cancel(watchergetListNewsByCate);
   }
 }
 

@@ -96,6 +96,198 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
+      childRoutes: [
+        {
+          path: '/news/:id_cate_news',
+          name: 'listnews',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/ListNews/reducer'),
+              import('containers/ListNews/sagas'),
+              import('containers/ListNews'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('listnews', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        }
+      ]
+    },{
+      path: '/news/:id_cate_news/:id_news',
+      name: 'newsdetail',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/NewsDetail/reducer'),
+          import('containers/NewsDetail/sagas'),
+          import('containers/NewsDetail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('newsdetail', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },{
+      path: '/marketinfo',
+      name: 'marketinfo',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/MarketInfo/ManagerMarketInfo/reducer'),
+          import('containers/MarketInfo/ManagerMarketInfo/sagas'),
+          import('containers/MarketInfo/ManagerMarketInfo'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('marketinfo', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+      childRoutes: [
+        {
+          path: '/marketinfo/:id_cate_news',
+          name: 'listMarketInfo',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/MarketInfo/ListMarketInfo/reducer'),
+              import('containers/MarketInfo/ListMarketInfo/sagas'),
+              import('containers/MarketInfo/ListMarketInfo'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('listMarketInfo', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        }
+      ]
+    },{
+      path: '/marketinfo/:id_cate_news/:id_news',
+      name: 'marketInfoDetail',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/MarketInfo/marketInfoDetail/reducer'),
+          import('containers/MarketInfo/marketInfoDetail/sagas'),
+          import('containers/MarketInfo/marketInfoDetail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('marketInfoDetail', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },{
+      path: '/agritech',
+      name: 'managerAgriTech',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/NewsAgriTech/ManagerAgriTech/reducer'),
+          import('containers/NewsAgriTech/ManagerAgriTech/sagas'),
+          import('containers/NewsAgriTech/ManagerAgriTech'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('managerAgriTech', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+      childRoutes: [
+        {
+          path: '/agritech/:id_cate_news',
+          name: 'subCateAgriTech',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/NewsAgriTech/SubCateAgriTech/reducer'),
+              import('containers/NewsAgriTech/SubCateAgriTech/sagas'),
+              import('containers/NewsAgriTech/SubCateAgriTech'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('subCateAgriTech', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+          childRoutes: [
+            {
+              path: '/agritech/:id_cate_news/:id_sub_cate',
+              name: 'listNewsAgriTech',
+              getComponent(nextState, cb) {
+                const importModules = Promise.all([
+                  import('containers/NewsAgriTech/ListNewsAgriTech/reducer'),
+                  import('containers/NewsAgriTech/ListNewsAgriTech/sagas'),
+                  import('containers/NewsAgriTech/ListNewsAgriTech'),
+                ]);
+    
+                const renderRoute = loadModule(cb);
+    
+                importModules.then(([reducer, sagas, component]) => {
+                  injectReducer('listNewsAgriTech', reducer.default);
+                  injectSagas(sagas.default);
+                  renderRoute(component);
+                });
+    
+                importModules.catch(errorLoading);
+              },
+            }
+          ]
+        }, 
+      ]
+    },{
+      path: '/agritech/:id_cate_news/:id_sub_cate/:id_news',
+      name: 'agriTechDetail',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/NewsAgriTech/AgriTechDetail/reducer'),
+          import('containers/NewsAgriTech/AgriTechDetail/sagas'),
+          import('containers/NewsAgriTech/AgriTechDetail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('agriTechDetail', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
     },{
       path: '*',
       name: 'notfound',
