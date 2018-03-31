@@ -187,9 +187,9 @@ export default function createRoutes(store) {
       name: 'marketInfoDetail',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/MarketInfo/marketInfoDetail/reducer'),
-          import('containers/MarketInfo/marketInfoDetail/sagas'),
-          import('containers/MarketInfo/marketInfoDetail'),
+          import('containers/MarketInfo/MarketInfoDetail/reducer'),
+          import('containers/MarketInfo/MarketInfoDetail/sagas'),
+          import('containers/MarketInfo/MarketInfoDetail'),
         ]);
 
         const renderRoute = loadModule(cb);

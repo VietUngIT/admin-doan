@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import messages from './messages';
 import ListNewByCate from 'components/item/ListNewByCate'
-import CNewsDetail from 'components/CNewsDetail'
+import CnewsDetail from 'components/CnewsDetail'
 import { Tooltip, Icon, Pagination } from 'antd';
 import {
   getListNews,
@@ -98,7 +98,7 @@ export class NewsDetail extends React.Component {
     }
     let newsInfo = null;
     if(news && (news.size>0 || news.length>0)){
-      newsInfo = <CNewsDetail data={news} listCate={this.props.listCate} editTagsNews={this.props.edittagsNews}
+      newsInfo = <CnewsDetail data={news} listCate={this.props.listCate} editTagsNews={this.props.edittagsNews}
        changeImageNews={this.props.changeImageNews} editImageNews={this.props.editImageNews} imageEdit={this.props.imageEdit}
        changeShortDescNews={this.props.changeShortDescNews} changeTitleNews={this.props.changeTitleNews} infoEditNews={this.props.infoEditNews}
        changeAuThorNews={this.props.changeAuThorNews} changeSourceNews={this.props.changeSourceNews}
